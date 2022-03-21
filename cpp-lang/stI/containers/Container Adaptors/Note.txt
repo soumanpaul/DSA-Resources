@@ -1,0 +1,5 @@
+Container Adaptors : provide a different interface for sequential containers.
+
+    queue
+    priority_queue
+    stack

@@ -1,0 +1,8 @@
+Sequence Containers: implement data structures which can be accessed in a 
+sequential manner.
+
+    vector
+    list
+    deque
+    arrays
+    forward_list( Introduced in C++11)
