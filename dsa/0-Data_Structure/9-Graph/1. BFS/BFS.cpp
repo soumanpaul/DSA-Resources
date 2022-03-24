@@ -3,19 +3,22 @@
 #include <vector>
 using namespace std;
 
-void DFSRec(vector<int> adj[], int s, bool visited[]) {
-    visited[s] = true;
-    cout << s << " ";
-    for (int u : adj[s])
-        if (!visited[u])
-            DFSRec(adj, u, visited);
-}
-
-void DFS(vector<int> adj[], int v, int s) {
+void BFS(vector<int> adj[], int v, int s) {
     bool visited[v];
     for (int i = 0; i < v; i++)
         visited[i] = false;
-    DFSRec(adj, s, visited);
+    queue<int> q;
+    visited[s] = true;
+    q.push(s);
+    while (q.empty()) {
+        int u = q.front();
+        for (int v : adj[u]) {
+            if (!visited[v]) {
+                visited[v] = true;
+                q.push(v);
+            }
+        }
+    }
 }
 
 void addEdge(vector<int> adj[], int u, int v) {
