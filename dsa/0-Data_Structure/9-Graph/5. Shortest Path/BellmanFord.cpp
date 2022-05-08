@@ -9,8 +9,7 @@ struct Graph {
 	struct Edge* edge; 
 }; 
 
-struct Graph* createGraph(int V, int E) 
-{ 
+struct Graph* createGraph(int V, int E) { 
 	struct Graph* graph = new Graph; 
 	graph->V = V; 
 	graph->E = E; 
@@ -18,15 +17,13 @@ struct Graph* createGraph(int V, int E)
 	return graph; 
 } 
 
-void printArr(int dist[], int n) 
-{ 
+void printArr(int dist[], int n) { 
 	printf("Vertex Distance from Source\n"); 
 	for (int i = 0; i < n; ++i) 
 		printf("%d \t\t %d\n", i, dist[i]); 
 } 
 
-void BellmanFord(struct Graph* graph, int src) 
-{ 
+void BellmanFord(struct Graph* graph, int src) { 
 	int V = graph->V; 
 	int E = graph->E; 
 	int dist[V]; 

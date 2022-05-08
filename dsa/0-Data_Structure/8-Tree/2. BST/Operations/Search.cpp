@@ -11,9 +11,8 @@ struct TreeNode {
 
 // Iterative
 class Solution {
-
     TreeNode *searchBST(TreeNode *root, int target) {
-        TreeNode *cur = root;
+        TreeNode* cur = root;
         while (cur != NULL && cur->val != target) {
             if (target < cur->val) {
                 cur = cur->left;
@@ -23,10 +22,17 @@ class Solution {
         }
         return cur;
     }
+    TreeNode* searchBSTIterative(TreeNode* root, int val) {
+        while (root != null && root->val != val) {
+            root = (root->val > val) ? root->left : root->right;
+        }
+        return root;
+    }
 };
 
 class SolutionRecursive {
 public:
+    
     TreeNode *searchBST(TreeNode *root, int val) {
         if (root == NULL || root->val == val)
             return root;

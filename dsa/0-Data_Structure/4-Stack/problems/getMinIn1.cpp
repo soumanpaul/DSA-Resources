@@ -1,6 +1,6 @@
 //  getMin element in 0(1) time and aux space
 
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
 struct MyStack {
@@ -8,46 +8,44 @@ struct MyStack {
     int min;
 
     void push(int x) {
-        if(s.empty()) {
-            min =x;
+        if (s.empty()) {
+            min = x;
             s.push(x);
-        }
-        else if(x <=min){
-            s.push(x-min);
+        } else if (x <= min) {
+            s.push(x - min);
             min = x;
         } else {
             s.push(x);
         }
     }
     int pop() {
-        int t = s.top()
+        int t = s.top();
         s.pop();
-        if(t<=0){
+        if (t <= 0) {
             int res = min;
             min = min - t;
             return res;
-        } else {
+        } else
             return t;
-        }
     }
     int top() {
         int t = s.top();
-        return ((t<=0) ? min : t);
+        return ((t <= 0) ? min : t);
     }
-    int getMin(){
+    int getMin() {
         return min;
     }
 }
 
-int main() {
-    
+int
+main() {
+
     MyStack s;
     s.push(4);
     s.push(4);
     s.push(4);
     s.push(4);
     s.push(4);
-
 
     return 0;
 }

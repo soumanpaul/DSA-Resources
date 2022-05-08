@@ -1,26 +1,18 @@
-
 #include <iostream>
 #include <unordered_map>
 #include <vector>
 using namespace std;
 
-// Data structure to store a graph edge
 struct Edge {
     int src, dest;
 };
 
-// A class to represent a graph object
 class Graph {
+
 public:
-    // a vector of vectors to represent an adjacency list
     vector<vector<int>> adjList;
-
-    // Graph Constructor
     Graph(vector<Edge> const &edges, int n) {
-        // resize the vector to hold `n` elements of type `vector<int>`
         adjList.resize(n);
-
-        // add edges to the undirected graph
         for (auto &edge : edges) {
             adjList[edge.src].push_back(edge.dest);
             adjList[edge.dest].push_back(edge.src);
@@ -28,47 +20,44 @@ public:
     }
 };
 
-// A class to represent a disjoint set
+// Disjoint set Data Structure
 class DisjointSet {
     unordered_map<int, int> parent;
+    vector<int> rank;
 
 public:
-    // perform MakeSet operation
-    void MakeSet(int n) {
-        // create `n` disjoint sets (one for each vertex)
+    DisjointSet(int n) {
         for (int i = 0; i < n; i++) {
             parent[i] = i;
+            rank[i] = i;
         }
     }
-
-    // Find the root of the set in which element `k` belongs
     int Find(int k) {
-        // if `k` is root
         if (parent[k] == k) {
             return k;
         }
-
-        // recur for the parent until we find the root
-        return Find(parent[k]);
+        return parent[k] = Find(parent[k]);
     }
-
-    // Perform Union of two subsets
     void Union(int a, int b) {
-        // find the root of the sets in which elements `x` and `y` belongs
         int x = Find(a);
         int y = Find(b);
-
-        parent[x] = y;
+        if (x != y) {
+            if (rank[x] > rank[y]) {
+                parent[y] = x;
+            } else if (rank[x] < rank[y]) {
+                parent[x] = y;
+            } else {
+                parent[x] = y;
+                rank[y]++;
+            }
+        }
     }
 };
 
 // Returns true if the graph has a cycle
 bool findCycle(Graph const &graph, int n) {
-    // initialize Main class
-    DisjointSet ds;
 
-    // create a singleton set for each element of the universe
-    ds.MakeSet(n);
+    DisjointSet ds(n);
 
     // consider every edge (u, v)
     for (int u = 0; u < n; u++) {
@@ -86,30 +75,18 @@ bool findCycle(Graph const &graph, int n) {
             }
         }
     }
-
     return false;
 }
 
 // Union–find algorithm for cycle detection in a graph
+
 int main() {
-    // vector of graph edges
-    vector<Edge> edges =
-        {
-            {0, 1}, {0, 6}, {0, 7}, {1, 2}, {1, 5}, {2, 3}, {2, 4}, {7, 8}, {7, 11}, {8, 9}, {8, 10}, {10, 11}
-            // edge (10, 11) introduces a cycle in the graph
-        };
-
-    // total number of nodes in the graph (labelled from 0 to 11)
+    vector<Edge> edges = {{0, 1}, {0, 6}, {0, 7}, {1, 2}, {1, 5}, {2, 3}, {2, 4}, {7, 8}, {7, 11}, {8, 9}, {8, 10}, {10, 11}};
     int n = 12;
-
-    // build a graph from the given edges
     Graph graph(edges, n);
-
-    if (findCycle(graph, n)) {
+    if (findCycle(graph, n))
         cout << "Cycle Found";
-    } else {
+    else
         cout << "No Cycle Found";
-    }
-
     return 0;
 }

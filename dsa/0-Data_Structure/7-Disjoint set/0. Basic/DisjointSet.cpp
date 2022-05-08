@@ -3,27 +3,41 @@ using namespace std;
 #define n 5
 
 class UnionFind {
-    vector<int> root;
+    vector<int> parent;
+    vector<int> rank;
 
 public:
-    // Constructor of Union-find. The size is the length of the root array.
-    UnionFind(int sz) : root(sz) {}
+    UnionFind(int sz) : parent(sz) {
+        for (int i = 0; i < sz; i++) {
+            parent[i] = i;
+            rank[i] = i;
+        }
+    }
     int find(int x);
     void unionSet(int x, int y);
     bool connected(int x, int y);
 };
 
 int UnionFind::find(int x) {
-    while (x != root[x]) {
-        x = root[x];
+
+    // iterative code
+    // while (x != parent[x]) {
+    //     x = parent[x];
+    // }
+    // return x;
+
+    // Recursive code
+    if (parent[x] == x) {
+        return x;
+    } else {
+        return find(parent[x]);
     }
-    return x;
 }
 void UnionFind::unionSet(int x, int y) {
-    int rootX = find(x);
-    int rootY = find(y);
-    if (rootX != rootY) {
-        root[rootY] = rootX;
+    int parentX = find(x);
+    int parentY = find(y);
+    if (parentX != parentY) {
+        parent[parentY] = parentX;
     }
 }
 
@@ -33,25 +47,25 @@ bool UnionFind::connected(int x, int y) {
 
 // The find function – optimized with path compression:
 /*int find(int x) {
-    if (x == root[x]) {
+    if (x == parent[x]) {
         return x;
     }
-    return root[x] = find(root[x]);
+    return parent[x] = find(parent[x]);
 } */
 
 // The union function – Optimized by union by rank:
 /*
 void unionSet(int x, int y) {
-    int rootX = find(x);
-    int rootY = find(y);
-    if (rootX != rootY) {
-        if (rank[rootX] > rank[rootY]) {
-            root[rootY] = rootX;
-        } else if (rank[rootX] < rank[rootY]) {
-            root[rootX] = rootY;
+    int parentX = find(x);
+    int parentY = find(y);
+    if (parentX != parentY) {
+        if (rank[parentX] > rank[parentY]) {
+            parent[parentY] = parentX;
+        } else if (rank[parentX] < rank[parentY]) {
+            parent[parentX] = parentY;
         } else {
-            root[rootY] = rootX;
-            rank[rootX] += 1;
+            parent[parentY] = parentX;
+            rank[parentX] += 1;
         }
     }
 }

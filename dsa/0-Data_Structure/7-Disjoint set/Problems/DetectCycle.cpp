@@ -9,7 +9,7 @@ struct Edge {
 
 struct Graph {
     int V, E;
-    struct Edge* edge;
+    struct Edge *edge;
 };
 
 struct subset {
@@ -18,32 +18,26 @@ struct subset {
 };
 
 // Creates a graph with V vertices and E edges
-struct Graph* createGraph(int V, int E)
-{
-    struct Graph* graph = (struct Graph*)malloc(sizeof(struct Graph));
+struct Graph *createGraph(int V, int E) {
+    struct Graph *graph = (struct Graph *)malloc(sizeof(struct Graph));
     graph->V = V;
     graph->E = E;
-
-    graph->edge = (struct Edge*)malloc(graph->E * sizeof(struct Edge));
-
+    graph->edge = (struct Edge *)malloc(graph->E * sizeof(struct Edge));
     return graph;
 }
 
 // A utility function to find set of an element i
 // (uses path compression technique)
-int find(struct subset subsets[], int i)
-{
+int find(struct subset subsets[], int i) {
     // find root and make root as parent of i (path compression)
     if (subsets[i].parent != i)
         subsets[i].parent = find(subsets, subsets[i].parent);
-
     return subsets[i].parent;
 }
 
 // A function that does union of two sets of x and y
 // (uses union by rank)
-void Union(struct subset subsets[], int x, int y)
-{
+void Union(struct subset subsets[], int x, int y) {
     int xroot = find(subsets, x);
     int yroot = find(subsets, y);
 
@@ -63,13 +57,12 @@ void Union(struct subset subsets[], int x, int y)
 }
 
 // The main function to check whether a given graph contains cycle or not
-int isCycle(struct Graph* graph)
-{
+int isCycle(struct Graph *graph) {
     int V = graph->V;
     int E = graph->E;
 
     // Allocate memory for creating V sets
-    struct subset* subsets = (struct subset*)malloc(V * sizeof(struct subset));
+    struct subset *subsets = (struct subset *)malloc(V * sizeof(struct subset));
 
     for (int v = 0; v < V; ++v) {
         subsets[v].parent = v;
@@ -92,10 +85,9 @@ int isCycle(struct Graph* graph)
 }
 
 // Driver program to test above functions
-int main()
-{
+int main() {
     int V = 3, E = 3;
-    struct Graph* graph = createGraph(V, E);
+    struct Graph *graph = createGraph(V, E);
 
     // add edge 0-1
     graph->edge[0].src = 0;
@@ -116,4 +108,3 @@ int main()
 
     return 0;
 }
-Run

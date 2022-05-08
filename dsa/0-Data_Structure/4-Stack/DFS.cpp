@@ -1,9 +1,19 @@
-/*
- * Return true if there is a path from cur to target.
- */
-boolean DFS(Node cur, Node target, Set<Node> visited) {
-    return true if cur is target;
-    for (next : each neighbor of cur) {
+#include <bits/stdc++.h>
+using namespace std;
+
+struct Node {
+    int data;
+    Node *next;
+    Node(int x) {
+        data = x;
+        next = NULL;
+    }
+};
+
+bool DFS(Node *cur, Node *target, set<Node *> visited) {
+    if (cur == target)
+        return true;
+    for (auto next : cur) {
         if (next is not in visited) {
             add next to visted;
             return true if DFS (next, target, visited) == true;

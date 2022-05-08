@@ -3,6 +3,9 @@
 #include <vector>
 using namespace std;
 
+// DAG
+
+// Undirected Graph
 void DFS(vector<int> adj[], int s, bool visited[]) {
     visited[s] = true;
     cout << s << " ";
@@ -10,7 +13,6 @@ void DFS(vector<int> adj[], int s, bool visited[]) {
         if (!visited[u])
             DFS(adj, u, visited);
 }
-
 void DFSTraversal(vector<int> adj[], int v, int s) {
     bool visited[v];
     for (int i = 0; i < v; i++)
@@ -18,7 +20,22 @@ void DFSTraversal(vector<int> adj[], int v, int s) {
     DFS(adj, s, visited);
 }
 
-void DFS_DisconnectedGrap() {
+//  Disconnected Graphs
+void DFS_Disconnected(vector<int> adj[], vector<bool> &visited, int i) {
+    visited[i] = true;
+    for (int u : adj[i]) {
+        if (visited[u] == false)
+            DFS_Disconnected(adj, visited, u);
+    }
+}
+void DFS_DisconnectedGrap(vector<int> adj[], int v) {
+    vector<bool> visited(v);
+    for (int i = 0; i < v; i++)
+        visited[i] = false;
+    for (int i = 0; i < v; i++) {
+        if (visited[i] == false)
+            DFS_Disconnected(adj, visited, i);
+    }
 }
 
 void addEdge(vector<int> adj[], int u, int v) {

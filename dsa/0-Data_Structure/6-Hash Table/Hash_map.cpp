@@ -6,14 +6,7 @@ class MyHashMap {
     vector<list<pair<int, int>>> hash;
 
 public:
-    pair<int, int> find(list<pair<int, int>> &val, int key) {
-        pair<int, int> ans = {INT_MAX, INT_MAX};
-        for (auto x : val) {
-            if (x.first == key)
-                ans = x;
-        }
-        return ans;
-    }
+   
 
     MyHashMap() {
         list<pair<int, int>> val;
@@ -38,7 +31,14 @@ public:
         }
         return -1;
     }
-
+    pair<int, int> find(list<pair<int, int>> &val, int key) {
+        pair<int, int> ans = {INT_MAX, INT_MAX};
+        for (auto x : val) {
+            if (x.first == key)
+                ans = x;
+        }
+        return ans;
+    }
     void remove(int key) {
         int hash_key = key % prime;
         list<pair<int, int>> val = hash[hash_key];

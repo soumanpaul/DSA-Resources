@@ -1,11 +1,11 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-struct MyHash {
+struct HashTable {
     int *arr;
     int cap, size;
 
-    MyHash(int c) {
+    HashTable(int c) {
         cap = c;
         size = 0;
         arr = new int[cap];
@@ -13,13 +13,13 @@ struct MyHash {
             arr[i] = -1;
     }
 
-    int hash(int key) {
+    int hashFunction(int key) {
         return key % cap;
     }
     bool insert(int key) {
         if (size == cap)
             return false;
-        int i = hash(key);
+        int i = hashFunction(key);
         while (arr[i] != -1 && arr[i] != -2 && arr[i] != key)
             i = (i + 1) % cap;
         if (arr[i] == key)
@@ -31,7 +31,7 @@ struct MyHash {
         }
     }
     bool search(int key) {
-        int h = hash(key);
+        int h = hashFunction(key);
         int i = h;
         while (arr[i] != -1) {
             if (arr[i] == key)
@@ -43,7 +43,7 @@ struct MyHash {
         return false;
     }
     bool erase(int key) {
-        int h = hash(key);
+        int h = hashFunction(key);
         int i = h;
         while (arr[i] != -1) {
             if (arr[i] == key) {
@@ -59,7 +59,7 @@ struct MyHash {
 };
 
 int main() {
-    MyHash mh(7);
+    HashTable mh(7);
     mh.insert(49);
     mh.insert(56);
     mh.insert(72);

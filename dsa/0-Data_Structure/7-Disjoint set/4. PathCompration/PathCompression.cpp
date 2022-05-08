@@ -1,21 +1,22 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-class UnionFind{
-    private:
-        vector<int> root;
-    public:
-        UnionFind(int sz): root(sz) {
-            for(int i =0; i <sz; i++)
-                root[i] = i;
-        }    
+class UnionFind {
+private:
+    vector<int> root;
 
-        int find(int x) {
-            if(x== root[x])
-                return x;
-            return root[x] = find(root[x]);    
-        }
-         void unionSet(int x, int y) {
+public:
+    UnionFind(int sz) : root(sz) {
+        for (int i = 0; i < sz; i++)
+            root[i] = i;
+    }
+
+    int find(int x) {
+        if (x == root[x])
+            return x;
+        return root[x] = find(root[x]);
+    }
+    void unionSet(int x, int y) {
         int rootX = find(x);
         int rootY = find(y);
         if (rootX != rootY) {
@@ -28,7 +29,6 @@ class UnionFind{
     }
 };
 
-
 int main() {
     // for displaying booleans as literal strings, instead of 0 and 1
     cout << boolalpha;
@@ -40,14 +40,12 @@ int main() {
     uf.unionSet(6, 7);
     uf.unionSet(3, 8);
     uf.unionSet(8, 9);
-    cout << uf.connected(1, 5) << endl;  // true
-    cout << uf.connected(5, 7) << endl;  // true
-    cout << uf.connected(4, 9) << endl;  // false
+    cout << uf.connected(1, 5) << endl; // true
+    cout << uf.connected(5, 7) << endl; // true
+    cout << uf.connected(4, 9) << endl; // false
     // 1-2-5-6-7 3-8-9-4
     uf.unionSet(9, 4);
-    cout << uf.connected(4, 9) << endl;  // true
+    cout << uf.connected(4, 9) << endl; // true
 
     return 0;
 }
-
-

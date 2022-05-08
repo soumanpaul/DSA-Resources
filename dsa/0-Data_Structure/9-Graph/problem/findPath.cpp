@@ -1,3 +1,6 @@
+//  use a BFS approach to solve the problem of finding whether a path exists
+// from the source vertex to the target vertex on an undirected graph.
+
 #include <iostream>
 #include <stack>
 #include <vector>
